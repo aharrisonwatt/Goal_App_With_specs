@@ -29,7 +29,7 @@ feature "logging in" do
   end
 
   it "shows username on the homepage after login" do
-    User.create!(username: 'ginger_baker', password: 'password')
+    FactoryGirl.create(:user)
     sign_in_as_ginger_baker
     expect(page).to have_content('ginger_baker')
     expect(current_path).to eq('/goals')
@@ -47,7 +47,7 @@ feature "logging out" do
   end
 
   it "doesn't show username on the homepage after logout" do
-    User.create!(username: 'ginger_baker', password: 'password')
+    FactoryGirl.create(:user)
     sign_in_as_ginger_baker
     click_button 'Sign Out'
     expect(current_path).to eq('/goals')

@@ -1,7 +1,13 @@
 require 'rails_helper'
 
 RSpec.describe User, type: :model do
-  pending "add some examples to (or delete) #{__FILE__}"
+
+  context "Password Encryption" do
+    it "does not save passwords to the database"
+      
+    it "uses BCrypt to encrypt the password"
+  end
+
 
 
   # ensures_session_token after_initialize

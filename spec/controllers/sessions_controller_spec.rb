@@ -1,9 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController, type: :controller do
-  let!(:user) { User.create({username: "ginger_baker", password: "password"})}
+  let!(:user) {FactoryGirl.create(:user)}
 
   context "With invalid credentials" do
+
+
     it "renders the new page with invalid username" do
       post :create, user: {username: "wrong_person", password: "password"}
       expect(response).to render_template("new")
@@ -23,9 +25,10 @@ RSpec.describe SessionsController, type: :controller do
       expect(response).to redirect_to(goals_url)
     end
 
-    # it "Logs user in" do
-    #   post :create, user: {username: "ginger_baker", password: "password"}
-    #   expect(current_user).to eq(user)
-    # end
+    it "Logs user in" do
+      post :create, user: {username: "ginger_baker", password: "password"}
+      current_user = User.find_by_username('ginger_baker')
+      expect(session[:session_token]).to eq(current_user.session_token)
+    end
   end
 end
